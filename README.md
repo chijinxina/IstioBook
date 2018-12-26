@@ -25,7 +25,7 @@ Istio 首先是一个服务网络，但是Istio又不仅仅是服务网格: 在 
 3. **proxy_debug**
 4. **istio-ca**
 
-## Istio在kubernetes下安装 ##
+## Istio在kubernetes下安装 [简书](https://www.jianshu.com/p/7b06a122da30) ##
 1. **https://github.com/istio/istio/releases 先到下载页面下载 istio-Release**
 2. **Istio安装目录：**
   + install/ : 包含了在 k8s 中安装 istio 时使用的 .yaml 文件
