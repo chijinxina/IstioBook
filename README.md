@@ -59,6 +59,15 @@ kubectl get svc -n istio-system
 kubectl get pods -n istio-system
 
 
+## Istio部署微服务应用程序 ##
+***envoy containers***是服务网格的基础设施。  
+***istio-sidecar-injector**负责自动将***envoy containers***注入到微服务应用的Pod中。  
+如果启用了***istio-sidecar-injector***，可以直接使用***kubectl apply***部署微服务应用，***istio-sidecar-injector***会自动注入***envoy containers***到微服务应用的Pod中，***kubectl apply***部署微服务应用到相应的***namespace***中，应确保***namespace***命名空间具有标签***istio-injection=enabled***  
+***kubectl label namespace <namespace> istio-injection=enabled***  
+***kubectl create -n <namespace> -f <your-app-spec>.yaml***
+如果没有安装***istio-sidecar-injector***，必须使用***istio kube-inject***手动将***envoy containers***注入到微服务应用的Pod中。
+
+
 
 
 
