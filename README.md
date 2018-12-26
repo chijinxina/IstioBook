@@ -26,7 +26,7 @@ Istio 首先是一个服务网络，但是Istio又不仅仅是服务网格: 在 
 4. **istio-ca**
 
 ## Istio在kubernetes下安装 ##
-1. **(https://github.com/istio/istio/releases)先到下载页面下载 istio-Release**
+1. **https://github.com/istio/istio/releases 先到下载页面下载 istio-Release**
 2. **Istio安装目录：**
   + install/ : 包含了在 k8s 中安装 istio 时使用的 .yaml 文件
   + samples/ : 示例应用
@@ -45,6 +45,23 @@ helm template install/kubernetes/helm/istio --name istio --namespace istio-syste
 //然后 Install the components via the manifest:   
 kubectl create namespace istio-system   
 kubectl create -f $HOME/istio.yaml
+  + ***安装选项4: Use Helm and Tiller to manage the Istio deployment***  
+//如果还没有为 Tiller 安装 service Account, 先安装一个:  
+kubectl create -f install/kubernetes/helm/helm-service-account.yaml   
+//使用 service Account 安装 Install Tiller 到你的集群:   
+helm init --service-account tiller  
+//安装 Istio:  
+helm install install/kubernetes/helm/istio --name istio --namespace istio-system   
+5. **安装完成后后验证**  
+//确保如下的 kubernetes 服务被部署: istio-pilot, istio-ingressgateway, istio-policy, istio-telemetry, prometheus, istio-galley , 还有 istio-sidecar-injector(如果已安装了的话)  
+kubectl get svc -n istio-system  
+//确保相应的 pods 被部署 并且所有的 containers 都启动并且运行: istio-pilot-*, istio-ingressgateway-*, istio-egressgateway-*, istio-policy-*, istio-telemetry-*, istio-citadel-*, prometheus-*, istio-galley-*, 还有 istio-sidecar-injector-* (如果已安装了的话)  
+kubectl get pods -n istio-system
+
+
+
+
+
 
 
 
