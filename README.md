@@ -35,16 +35,16 @@ Istio 首先是一个服务网络，但是Istio又不仅仅是服务网格: 在 
 3. **安装CRDS(istio 的 Custom Resource Definition)**
 kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
 4. **安装选项：**
-  + ***安装选项1: Install Istio without mutual TLS authentication between sidecars***
+  + ***安装选项1: Install Istio without mutual TLS authentication between sidecars***  
 kubectl apply -f install/kubernetes/istio-demo.yaml
-  + ***安装选项2: Install Istio with default mutual TLS authentication***
+  + ***安装选项2: Install Istio with default mutual TLS authentication***  
 kubectl apply -f install/kubernetes/istio-demo-auth.yaml
-  + ***安装选项3: Render Kubernetes manifest with Helm and deploy with kubectl***
-+ //首先 Render Istio’s core components to a Kubernetes manifest called istio.yaml:
-+ helm template install/kubernetes/helm/istio --name istio --namespace istio-system > $HOME/istio.yaml
-+ //然后 Install the components via the manifest:
-+ kubectl create namespace istio-system
-+ kubectl create -f $HOME/istio.yaml
+  + ***安装选项3: Render Kubernetes manifest with Helm and deploy with kubectl***   
+//首先 Render Istio’s core components to a Kubernetes manifest called istio.yaml:   
+helm template install/kubernetes/helm/istio --name istio --namespace istio-system > $HOME/istio.yaml   
+//然后 Install the components via the manifest:   
+kubectl create namespace istio-system   
+kubectl create -f $HOME/istio.yaml
 
 
 
