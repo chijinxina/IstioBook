@@ -60,17 +60,23 @@ kubectl get pods -n istio-system
 
 
 ## Istio部署微服务应用程序 ##
-***envoy containers*** 是服务网格的基础设施。 
+***envoy containers*** 即 ***sidecar*** 是服务网格的基础设施。  
 ***istio-sidecar-injector*** 负责自动将 ***envoy containers*** 注入到微服务应用的Pod中。  
 如果启用了 ***istio-sidecar-injector*** ，可以直接使用 ***kubectl apply*** 部署微服务应用，***istio-sidecar-injector*** 会自动注入 ***envoy containers*** 到微服务应用的Pod中， ***kubectl apply*** 部署微服务应用到相应的 ***namespace*** 中，应确保 ***namespace*** 命名空间具有标签 ***istio-injection=enabled***   
 ***kubectl label namespace <namespace> istio-injection=enabled***  
 ***kubectl create -n <namespace> -f <your-app-spec>.yaml***
-如果没有安装 ***istio-sidecar-injector*** ，必须使用 ***istio kube-inject*** 手动将 ***envoy containers*** 注入到微服务应用的Pod中。
+如果没有安装 ***istio-sidecar-injector*** ，必须使用 ***istio kube-inject*** 手动将 ***envoy containers*** 注入到微服务应用的Pod中。  
+***istioctl kube-inject -f <your-app-spec>.yaml | kubectl apply -f -***       
+### ***sidecar*** 的自动注入 ###
+***sidecar*** 可以被自动添加到 k8s pod 中, 通过使用 ***mutating webhook admission controller***   
+这个特色需要 k8s 1.9+ . 确保 kube-apiserver 进程设置了 admission-control 选项值包含 MutatingAdmissionWebhook and ValidatingAdmissionWebhook admission controllers ,  并且顺序正确, 并且 admissionregistration API 被启用:   
++ ***kubectl api-versions | grep admissionregistration***     
++ //输出:   
++ ***admissionregistration.k8s.io/v1alpha1***   
++ ***admissionregistration.k8s.io/v1beta1***   
 
-
-
-
-
+## Istio Example ##
+### **Example1: ** ***BookInfo*** ###
 
 
 
